@@ -5,6 +5,7 @@ import song1 from '../assets/audio/lofi.mp3';
 const AudioPlayer = () => {
   const audioRef = useRef(null); 
   const [volume, setVolume] = useState(0);
+  const [Button, SetButton] = useState('Play');
 
   useEffect(() => {
     if (audioRef.current) {
@@ -12,6 +13,16 @@ const AudioPlayer = () => {
     }
   }, [volume]);
 
+  const changeButton = () => {
+    if (Button === 'Play') {
+      SetButton('Pause')
+      audioRef.current.play();
+    }
+    else {
+      SetButton('Play')
+      audioRef.current.pause();
+    }
+  };
 
 
   const handleVolumeChange = (event) => {
@@ -23,8 +34,8 @@ const AudioPlayer = () => {
     <div className="absolute bottom-0 left-0 text-white text-3xl p-3">
       <h2>Now Playing: Lofi music</h2>
       
-      <audio ref={audioRef} src = {song1} autoPlay loop />
-
+      <audio ref={audioRef} src = {song1} loop />
+      <button onClick={changeButton}>{Button}</button>
       <div className="volume-control">
         <label htmlFor="volume">Volume</label>
         <input
